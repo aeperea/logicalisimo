@@ -1,7 +1,7 @@
 # Logicalísimo Telephone Input
 A jQuery plugin build on top of the [International Telephone Input](https://github.com/Bluefieldscom/intl-tel-input) plugin for extra configuration
 
-Please don't forget to check [International Telephone Input](https://github.com/Bluefieldscom/intl-tel-input)
+Please don't forget to check [International Telephone Input](https://github.com/Bluefieldscom/intl-tel-input), as this plugin is mostly for in-house use :)
 
 ## Demo
 The file index.html runs a small demo with minimal configuration
