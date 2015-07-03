@@ -240,7 +240,7 @@ function findCountryByISOCode(code){
 
 
 (function ($) {
-    $.fn.newPhoneInput = function(options) {
+    $.fn.logicalisimo = function(options) {
         this.empty();
 
         var settings = $.extend({
@@ -250,14 +250,13 @@ function findCountryByISOCode(code){
             defaultCountry           : 'us',
             geoIpLookup              : null,
             nationalMode             : true,
-            numberType               : "mobile",
+            numberType               : "MOBILE",
             onlyCountries            : undefined,
             preferredCountries       : ["us", "mx"],
-            onValidPhone             : function(){console.log("should define an on validPhone callback")},
-            onInvalidPhone           : function(){console.log("should define a on inValidPhone callback")},
-            countryCodes             : null,
+            onValidPhone             : function(){},
+            onInvalidPhone           : function(){},
             noIdentify               : true,
-            rawCountryCodes          : null,
+            noFlags                  : false,
             flagsSubclass            : '',
             containerClass           : this.attr('class'),
             buttonElID               : 'phone-button',
@@ -344,7 +343,6 @@ function findCountryByISOCode(code){
             var countryCode     = this.$countryListEl.children('.country.active').attr('data-dial-code');
             var isoCode         = this.$countryListEl.children('.country.active').attr('data-country-code');
 
-            console.log(tel)
             // Todo get a max_digits for each country
             var maxDigits = 10;
             if (countryCode == '52'){
@@ -352,7 +350,6 @@ function findCountryByISOCode(code){
             } else {
                 this.onOtherCountry(tel, countryCode, isoCode, maxDigits);
             }
-            console.log(this.content)
         };
 
         this.onKeyStroke = function(e) {
@@ -393,14 +390,14 @@ function findCountryByISOCode(code){
         this.$countryListEl  = $('.' + settings.containerClass).children().children('.flag-dropdown').children('.country-list');
         this.$countryFlagsEl = $('.' + settings.containerClass).children().children('.flag-dropdown');
         if (settings.flagsSubClass) {this.$countryListEl.addClass(settings.flagsSubClass);}
-        if (settings.noFlags) {this.$countryFlagsEl.hide();}
+        if (settings.noFlags) {this.$countryFlagsEl.empty();}
 
         this.content = {};
         this.updatePhoneData('','');
 
-        this.$el.on('keyup', _.bind(this.onKeyStroke, this));
-        this.$el.on('paste', _.bind(this.onReaction, this));
-        $('li.country').on('click', _.bind(this.onDelayedReaction, this));
+        this.$el.on('keyup', $.proxy(this.onKeyStroke, this));
+        this.$el.on('paste', $.proxy(this.onReaction, this));
+        $('li.country').on('click', $.proxy(this.onDelayedReaction, this));
         return this;
     };
 }(jQuery));
